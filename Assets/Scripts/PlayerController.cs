@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
@@ -40,7 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody = transform.GetComponent<Rigidbody>();
         _playerInputActions = new PlayerInputActions();
-        _playerInputActions.Ingame.Attack01.performed += ExecuteAttack01;
+        _playerInputActions.Ingame.Attack01.performed += (param) => ExecuteAttack01(param).Forget();
         _playerInputActions.Ingame.Roll.performed += ExecuteRoll;
     }
 
@@ -61,26 +62,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ExecuteAttack01(InputAction.CallbackContext obj)
+    private async UniTask ExecuteAttack01(InputAction.CallbackContext obj)
     {
         if (_isAttackAvailable && !_isAttacking)
         {
             _isAttacking = true;
             animator.SetBool(KEY_ANIMATION_ATTACK, true);
+            this.transform.DOMove(view.position + view.forward * attackMoveStepValue, .2f);
+            await UniTask.Delay(TimeSpan.FromSeconds(attackDelayDuration));
             trailObject.gameObject.SetActive(true);
-            this.transform.DOMove(view.position + view.forward * attackMoveStepValue, .2f).SetDelay(attackDelayDuration);
-            WaitAndExecute(ATTACK_DURATION,
-                           () =>
-                           {
-                               _isAttacking = false;
-                               trailObject.gameObject.SetActive(false);
-                               animator.SetBool(KEY_ANIMATION_ATTACK, false);
-                           }
-                )
-                .Forget();
+            await UniTask.Delay(TimeSpan.FromSeconds(ATTACK_DURATION - attackDelayDuration));
+            _isAttacking = false;
+            trailObject.gameObject.SetActive(false);
+            animator.SetBool(KEY_ANIMATION_ATTACK, false);
         }
     }
-    
+
     private void Move()
     {
         Vector2 input = _playerInputActions.Ingame.Movement.ReadValue<Vector2>();
