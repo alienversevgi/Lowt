@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,13 +14,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Transform view;
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float ATTACK_DURATION = 1.0f;
+    [SerializeField] private float attackDuration;
     [SerializeField] private float attackDelayDuration;
     [SerializeField] private float attackMoveStepValue;
     [SerializeField] private float rollMoveDistanceMultiplier;
-    [SerializeField] private float rollAfterAnimatorSpeedChangeDuration;
-    [SerializeField] private float ROLL_DURATION = 1.0f;
-    [SerializeField] private float rollMagnitude;
+    [SerializeField] private float rollDuration;
     [SerializeField] private GameObject trailObject;
 
     private Rigidbody _rigidbody;
@@ -52,7 +51,7 @@ public class PlayerController : MonoBehaviour
             _isRolling = true;
             animator.SetBool(KEY_ANIMATION_ROLL, true);
 
-            this.transform.DOMove(view.position + view.forward * rollMoveDistanceMultiplier, ROLL_DURATION)
+            this.transform.DOMove(view.position + view.forward * rollMoveDistanceMultiplier, rollDuration)
                 .OnComplete(() =>
                     {
                         _isRolling = false;
@@ -71,7 +70,7 @@ public class PlayerController : MonoBehaviour
             this.transform.DOMove(view.position + view.forward * attackMoveStepValue, .2f);
             await UniTask.Delay(TimeSpan.FromSeconds(attackDelayDuration));
             trailObject.gameObject.SetActive(true);
-            await UniTask.Delay(TimeSpan.FromSeconds(ATTACK_DURATION - attackDelayDuration));
+            await UniTask.Delay(TimeSpan.FromSeconds(attackDuration - attackDelayDuration));
             _isAttacking = false;
             trailObject.gameObject.SetActive(false);
             animator.SetBool(KEY_ANIMATION_ATTACK, false);
@@ -91,7 +90,8 @@ public class PlayerController : MonoBehaviour
             if (hasValidDirection)
             {
                 view.transform.DOLookAt(transform.position + _direction, .3f, AxisConstraint.Y, Vector3.up);
-                this.transform.Translate(_direction * moveSpeed * rollMagnitude * Time.deltaTime);
+                var x = _direction * moveSpeed * Time.deltaTime;
+                _rigidbody.MovePosition(this.transform.position + x);
                 animator.speed = 3 * _direction.magnitude;
             }
 
