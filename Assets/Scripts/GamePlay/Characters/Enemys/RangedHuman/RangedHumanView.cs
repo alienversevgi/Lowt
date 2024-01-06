@@ -1,7 +1,6 @@
-﻿using GamePlay.Character.Enemy;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace GamePlay.Character
+namespace GamePlay.Characters.Enemys
 {
     public class RangedHumanView : MonoBehaviour
     {

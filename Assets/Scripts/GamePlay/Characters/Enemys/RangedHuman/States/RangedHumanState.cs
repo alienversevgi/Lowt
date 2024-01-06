@@ -1,14 +1,12 @@
-namespace GamePlay.Character
+namespace GamePlay.Characters.Enemys
 {
     public class RangedHumanState : State
     {
         protected RangedHumanController _controller;
-        protected RangedHumanView _view;
         
         public override void Initialize()
         {
             _controller = this.GetComponent<RangedHumanController>();
-            _view = this.GetComponent<RangedHumanView>();
         }
 
         public override void Enter()

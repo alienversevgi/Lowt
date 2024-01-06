@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GamePlay.Character
+namespace GamePlay.Characters
 {
     public abstract class State : MonoBehaviour
     {

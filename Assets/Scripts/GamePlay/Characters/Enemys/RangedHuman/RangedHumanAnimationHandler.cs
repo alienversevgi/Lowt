@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GamePlay.Character.Enemy
+namespace GamePlay.Characters.Enemys
 {
     public class RangedHumanAnimationHandler : MonoBehaviour
     {
