@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 120689795401473357}
   - component: {fileID: 7792644278160748488}
   - component: {fileID: 894663588}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6438486132290103255}
   view: {fileID: 4571004449972650368}
-  moveSpeed: 17
+  moveSpeed: 20
   attackDuration: 0.8
   attackDelayDuration: 0.2
   attackMoveStepValue: 1.5

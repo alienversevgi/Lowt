@@ -3,6 +3,8 @@ namespace GamePlay.Characters.Enemys
     public class RangedHumanState : State
     {
         protected RangedHumanController _controller;
+        protected RangedHumanView _view => _controller.View;
+        protected StateController _stateController => _controller.StateController;
         
         public override void Initialize()
         {
