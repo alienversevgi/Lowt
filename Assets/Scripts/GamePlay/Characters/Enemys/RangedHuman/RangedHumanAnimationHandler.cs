@@ -4,17 +4,18 @@ namespace GamePlay.Characters.Enemys
 {
     public class RangedHumanAnimationHandler : MonoBehaviour
     {
-        public readonly int Idle = Animator.StringToHash("IsIdle");
-        public readonly int Prepare = Animator.StringToHash("IsPrepare");
-        public readonly int Walk = Animator.StringToHash("IsWalk");
-        public readonly int Run = Animator.StringToHash("IsRun");
-        public readonly int Throw = Animator.StringToHash("IsThrow");
-
+        private readonly int _state = Animator.StringToHash("State");
+        
         [SerializeField] private Animator animator;
-
+        
         public void PlayTrigger(int id)
         {
             animator.SetTrigger(id);
+        }
+
+        public void Play(RangedHumanStateType stateType)
+        {
+            animator.SetInteger(_state, (int) stateType);
         }
 
         public void PlayBool(int id, bool isOn)
