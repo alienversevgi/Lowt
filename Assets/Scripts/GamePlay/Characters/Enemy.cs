@@ -1,4 +1,4 @@
-﻿namespace GamePlay.Characters.Enemy
+﻿namespace GamePlay.Characters
 {
     public class Enemy : Character
     {
