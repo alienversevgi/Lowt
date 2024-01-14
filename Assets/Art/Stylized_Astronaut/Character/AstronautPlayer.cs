@@ -6,7 +6,6 @@ namespace AstronautPlayer
     public class AstronautPlayer : MonoBehaviour
     {
         [SerializeField] private Animator anim;
-        private PlayerController controller;
 
         public float speed = 600.0f;
         public float turnSpeed = 400.0f;
