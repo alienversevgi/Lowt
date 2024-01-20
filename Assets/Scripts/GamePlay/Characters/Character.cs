@@ -1,4 +1,5 @@
 ﻿using System;
+using GamePlay.Components;
 using UnityEngine;
 
 namespace GamePlay.Characters

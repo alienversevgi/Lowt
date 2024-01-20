@@ -1,5 +1,6 @@
 ﻿using System;
 using GamePlay.Characters.Enemys;
+using GamePlay.Characters.Enemys.RangedHuman;
 using UnityEngine;
 
 namespace GamePlay.Characters
@@ -8,12 +9,12 @@ namespace GamePlay.Characters
     {
         public StateController StateController;
         public RangedHumanView View;
+        public RangedHumanData Data;
 
         public Transform Target { get; set; }
-
+        
         public override void Move(Vector3 point, Action callback)
         {
-            // View.AnimationHandler.PlayTrigger(View.AnimationHandler.Run);
             View.AnimationHandler.Play(RangedHumanStateType.Run);
             base.Move(point, callback);
         }

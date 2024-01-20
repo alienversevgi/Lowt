@@ -22,5 +22,10 @@ namespace GamePlay.Characters.Enemys
         {
             animator.SetBool(id, isOn);
         }
+
+        public bool GetBool(string key)
+        {
+           return animator.GetBool(key);
+        }
     }
 }

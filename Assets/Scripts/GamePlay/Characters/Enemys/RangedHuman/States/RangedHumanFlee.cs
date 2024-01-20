@@ -110,7 +110,8 @@ namespace GamePlay.Characters.Enemys
 
         private void OnReachedToFleePoint()
         {
-            _stateController.ChangeState(nameof(RangedHumanIdle));
+            Debug.Log("OnReachedToFleePoint");
+            _stateController.ChangeState(nameof(RangedHumanPrepare));
         }
     }
 }

@@ -915,6 +915,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 120689795401473357, guid: f43bfa128b0c76d41895f1d7c9417e54,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 3448174305837413477, guid: f43bfa128b0c76d41895f1d7c9417e54,
         type: 3}
       propertyPath: m_RootOrder
@@ -1148,43 +1153,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4850338522210890403, guid: c36eb8a39e8eb6742abe8daf5ee80466,
         type: 3}
-      propertyPath: offset
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4850338522210890403, guid: c36eb8a39e8eb6742abe8daf5ee80466,
-        type: 3}
-      propertyPath: tryCount
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4850338522210890403, guid: c36eb8a39e8eb6742abe8daf5ee80466,
-        type: 3}
-      propertyPath: magnitude
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4850338522210890403, guid: c36eb8a39e8eb6742abe8daf5ee80466,
-        type: 3}
       propertyPath: testObject
       value: 
       objectReference: {fileID: 949571595}
-    - target: {fileID: 4850338522210890403, guid: c36eb8a39e8eb6742abe8daf5ee80466,
-        type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051345808245114582, guid: c36eb8a39e8eb6742abe8daf5ee80466,
-        type: 3}
-      propertyPath: m_TranslationOffsets.Array.data[0].x
-      value: 0.0036168098
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051345808245114582, guid: c36eb8a39e8eb6742abe8daf5ee80466,
-        type: 3}
-      propertyPath: m_TranslationOffsets.Array.data[0].y
-      value: 1.7038407
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051345808245114582, guid: c36eb8a39e8eb6742abe8daf5ee80466,
-        type: 3}
-      propertyPath: m_TranslationOffsets.Array.data[0].z
-      value: 1.8893924
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c36eb8a39e8eb6742abe8daf5ee80466, type: 3}

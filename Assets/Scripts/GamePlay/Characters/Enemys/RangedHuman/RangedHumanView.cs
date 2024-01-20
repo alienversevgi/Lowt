@@ -1,9 +1,15 @@
-﻿using UnityEngine;
+﻿using GamePlay.Characters.Enemys.RangedHuman;
+using GamePlay.Projectile;
+using Unity.Mathematics;
+using UnityEngine;
 
 namespace GamePlay.Characters.Enemys
 {
     public class RangedHumanView : MonoBehaviour
     {
+        [SerializeField] private GameObject projectileObject;
+        [SerializeField] private Transform aimPoint;
+        
         public RangedHumanAnimationHandler AnimationHandler
         {
             get
@@ -18,5 +24,12 @@ namespace GamePlay.Characters.Enemys
         }
 
         private RangedHumanAnimationHandler _animationHandler;
+
+        public RangedHumanProjectile GetProjectile()
+        {
+            var cloneObject = Instantiate(projectileObject, aimPoint.position, quaternion.identity);
+            
+            return cloneObject.GetComponent<RangedHumanProjectile>();
+        }
     }
 }

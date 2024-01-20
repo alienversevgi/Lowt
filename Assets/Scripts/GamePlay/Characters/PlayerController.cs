@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Random = UnityEngine.Random;
 
 namespace GamePlay.Characters
 {
@@ -111,11 +110,6 @@ namespace GamePlay.Characters
         private void Update()
         {
             Move();
-
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                Debug.Log(Random.insideUnitSphere);
-            }
         }
 
         private void OnEnable()

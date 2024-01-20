@@ -1,11 +1,18 @@
-﻿namespace GamePlay.Characters
+﻿using UnityEngine;
+
+namespace GamePlay.Characters
 {
     public enum RangedHumanStateType
     {
         Idle,
         Run,
         Prepare,
-        Throwing,
+        Attack,
         Dead
+    }
+
+    public class Test : StateMachineBehaviour
+    {
+        
     }
 }

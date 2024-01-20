@@ -2,7 +2,7 @@
 using Pathfinding;
 using UnityEngine;
 
-namespace GamePlay
+namespace GamePlay.Components
 {
     [RequireComponent(typeof(Seeker))]
     [RequireComponent(typeof(Funnel))]
@@ -26,6 +26,7 @@ namespace GamePlay
         {
             base.OnTargetReached();
             _onComplete?.Invoke();
+            _onComplete = null;
         }
     }
 }
