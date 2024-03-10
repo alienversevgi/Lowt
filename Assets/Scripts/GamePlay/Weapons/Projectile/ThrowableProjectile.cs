@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GamePlay.Projectile
+namespace GamePlay.Weapons
 {
     public class ThrowableProjectile : MonoBehaviour, IProjectilable
     {
@@ -13,7 +13,7 @@ namespace GamePlay.Projectile
             _rigidBody = this.GetComponent<Rigidbody>();
         }
 
-        public void Fire(Vector3 direction, float magnitude)
+        public void Shoot(Vector3 direction, float magnitude)
         {
             direction = direction.normalized;
             direction.y = .5f;

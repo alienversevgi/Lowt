@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GamePlay.Projectile
+namespace GamePlay.Weapons
 {
     public class RangedHumanProjectile : ThrowableProjectile
     {
