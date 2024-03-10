@@ -49,12 +49,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6438486132290103255}
   view: {fileID: 4571004449972650368}
-  moveSpeed: 20
+  moveSpeed: 5
   attackDuration: 0.8
   attackDelayDuration: 0.2
-  attackMoveStepValue: 1.5
+  attackMoveStepValue: 1
+  attackCooldown: 1.5
   rollMoveDistanceMultiplier: 3
   rollDuration: 0.5
+  rollCooldown: 1.3
   trailObject: {fileID: 8822086170511527957}
 --- !u!54 &7792644278160748488
 Rigidbody:

@@ -11,22 +11,19 @@ namespace GamePlay.Characters.Enemys
         public override void Enter()
         {
             base.Enter();
-            Debug.Log("RangedHumanPrepare enter");
+
             _view.AnimationHandler.Play(RangedHumanStateType.Prepare);
             WaitAndExecute(TimeSpan.FromSeconds(prepareDuration), OnPrepareCompleted).Forget();
         }
 
         private void OnPrepareCompleted()
         {
-            Debug.Log("PrepareCompleted");
             _stateController.ChangeState(nameof(RangedHumanAttack));
         }
 
         private async UniTask WaitAndExecute(TimeSpan duration, Action callBack)
         {
-            Debug.Log("RangedHumanPrepare delay enter");
             await UniTask.Delay(duration);
-            Debug.Log("RangedHumanPrepare delay exit");
             callBack.Invoke();
         }
     }

@@ -9,8 +9,8 @@ namespace GamePlay.Characters.Enemys
         
         public override void Enter()
         {
-            sightOfHandler.enabled = true;
             sightOfHandler.OnEnterToSight.AddListener(PlayerEnterToSight);
+            sightOfHandler.enabled = true;
             _view.AnimationHandler.Play(RangedHumanStateType.Idle);
         }
 
@@ -20,17 +20,10 @@ namespace GamePlay.Characters.Enemys
             _controller.StateController.ChangeState(nameof(RangedHumanFlee));
         }
 
-        public override void Tick()
-        {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                _controller.StateController.ChangeState(nameof(RangedHumanFlee));
-            }
-        }
-
         public override void Exit()
         {
             sightOfHandler.enabled = false;
+            sightOfHandler.OnEnterToSight.RemoveListener(PlayerEnterToSight);
         }
     }
 }

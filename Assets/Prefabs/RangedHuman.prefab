@@ -277,7 +277,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f268f9c3fc41bbb91e689b5b6e666f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testObject: {fileID: 0}
   magnitude: 10
   offset: 2
   tryCount: 100

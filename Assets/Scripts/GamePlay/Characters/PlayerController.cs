@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityTimer;
 
 namespace GamePlay.Characters
 {
@@ -18,8 +19,10 @@ namespace GamePlay.Characters
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackDelayDuration;
         [SerializeField] private float attackMoveStepValue;
+        [SerializeField] private float attackCooldown;
         [SerializeField] private float rollMoveDistanceMultiplier;
         [SerializeField] private float rollDuration;
+        [SerializeField] private float rollCooldown;
         [SerializeField] private GameObject trailObject;
 
         private Rigidbody _rigidbody;
@@ -29,13 +32,15 @@ namespace GamePlay.Characters
         private Vector3 _smoothInputMovement;
 
         private bool _isAttacking;
+        private bool _hasAttack = true;
         private bool _isRolling;
+        private bool _hasRoll = true;
         private bool _isMoving;
         private bool _isIdle;
 
         private bool _isMovingAvailable => !_isRolling && !_isAttacking;
-        private bool _isRollingAvailable => !_isAttacking;
-        private bool _isAttackAvailable => !_isRolling;
+        private bool _isRollingAvailable => _isMoving && !_isAttacking && !_isRolling && _hasRoll;
+        private bool _isAttackAvailable => !_isRolling && !_isAttacking && _hasAttack;
 
         private void Awake()
         {
@@ -47,37 +52,42 @@ namespace GamePlay.Characters
 
         private void ExecuteRoll(InputAction.CallbackContext obj)
         {
-            if (_isRollingAvailable && !_isRolling)
-            {
-                _isRolling = true;
-                animator.SetBool(KEY_ANIMATION_ROLL, true);
+            if (!_isRollingAvailable || _isRolling)
+                return;
 
-                this.transform.DOMove(view.position + view.forward * rollMoveDistanceMultiplier, rollDuration)
-                    .OnComplete(() =>
-                        {
-                            _isRolling = false;
-                            animator.SetBool(KEY_ANIMATION_ROLL, false);
-                        }
-                    );
-            }
+            _hasRoll = false;
+            Timer.Register(rollCooldown, onComplete: () => _hasRoll = true);
+
+            _isRolling = true;
+            animator.SetBool(KEY_ANIMATION_ROLL, true);
+            this._rigidbody.DOKill();
+            this._rigidbody.DOMove(view.position + view.forward * rollMoveDistanceMultiplier, rollDuration)
+                .OnComplete(() =>
+                    {
+                        _isRolling = false;
+                        animator.SetBool(KEY_ANIMATION_ROLL, false);
+                    }
+                );
         }
 
         private async UniTask ExecuteAttack01(InputAction.CallbackContext obj)
         {
-            if (_isAttackAvailable && !_isAttacking)
-            {
-                _isAttacking = true;
-                animator.SetBool(KEY_ANIMATION_ATTACK, true);
-                this.transform.DOMove(view.position + view.forward * attackMoveStepValue, .2f);
-                await UniTask.Delay(TimeSpan.FromSeconds(attackDelayDuration));
-                trailObject.gameObject.SetActive(true);
-                await UniTask.Delay(TimeSpan.FromSeconds(attackDuration - attackDelayDuration));
-                _isAttacking = false;
-                trailObject.gameObject.SetActive(false);
-                animator.SetBool(KEY_ANIMATION_ATTACK, false);
-            }
-        }
+            if (!_isAttackAvailable)
+                return;
 
+            _hasAttack = false;
+            Timer.Register(attackCooldown, () => _hasAttack = true);
+            _isAttacking = true;
+            animator.SetBool(KEY_ANIMATION_ATTACK, true);
+            this.transform.DOMove(view.position + view.forward * attackMoveStepValue, .2f);
+            await UniTask.Delay(TimeSpan.FromSeconds(attackDelayDuration));
+            trailObject.gameObject.SetActive(true);
+            await UniTask.Delay(TimeSpan.FromSeconds(attackDuration - attackDelayDuration));
+            _isAttacking = false;
+            trailObject.gameObject.SetActive(false);
+            animator.SetBool(KEY_ANIMATION_ATTACK, false);
+        }
+        
         private void Move()
         {
             Vector2 input = _playerInputActions.Ingame.Movement.ReadValue<Vector2>();
@@ -107,7 +117,7 @@ namespace GamePlay.Characters
             }
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             Move();
         }

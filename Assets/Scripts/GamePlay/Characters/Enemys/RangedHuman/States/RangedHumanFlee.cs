@@ -5,7 +5,6 @@ namespace GamePlay.Characters.Enemys
 {
     public class RangedHumanFlee : RangedHumanState
     {
-        [SerializeField] private GameObject testObject;
         [SerializeField] private int magnitude;
         [SerializeField] private int offset;
         [SerializeField] private int tryCount;
@@ -31,7 +30,6 @@ namespace GamePlay.Characters.Enemys
                 return randomPointOnMyFront;
             }
 
-            Debug.LogError("GetRandomPointOnCircle!");
             var fleePoint = GetRandomPointCircle(tryCount);
             
             return fleePoint;
@@ -110,7 +108,6 @@ namespace GamePlay.Characters.Enemys
 
         private void OnReachedToFleePoint()
         {
-            Debug.Log("OnReachedToFleePoint");
             _stateController.ChangeState(nameof(RangedHumanPrepare));
         }
     }

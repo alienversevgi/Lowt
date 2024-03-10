@@ -1,5 +1,5 @@
 ﻿using GamePlay.Characters.Enemys.RangedHuman;
-using GamePlay.Projectile;
+using GamePlay.Weapons;
 using Unity.Mathematics;
 using UnityEngine;
 
