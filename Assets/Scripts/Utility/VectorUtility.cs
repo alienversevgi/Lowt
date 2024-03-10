@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GamePlay.Utility
+namespace Utility
 {
     public static class VectorUtility
     {
