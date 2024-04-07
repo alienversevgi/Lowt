@@ -18,5 +18,6 @@ namespace GamePlay.Characters
         {
             _pathfActor.MovePoint(point, onCompleted);
         }
+        
     }
 }

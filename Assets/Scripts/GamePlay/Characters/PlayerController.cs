@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using GamePlay.Weapons;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityTimer;
@@ -24,6 +25,7 @@ namespace GamePlay.Characters
         [SerializeField] private float rollDuration;
         [SerializeField] private float rollCooldown;
         [SerializeField] private GameObject trailObject;
+        [SerializeField] private PlayerWeapon weapon;
 
         private Rigidbody _rigidbody;
         private Vector3 _direction;
@@ -80,11 +82,8 @@ namespace GamePlay.Characters
             _isAttacking = true;
             animator.SetBool(KEY_ANIMATION_ATTACK, true);
             this.transform.DOMove(view.position + view.forward * attackMoveStepValue, .2f);
-            await UniTask.Delay(TimeSpan.FromSeconds(attackDelayDuration));
-            trailObject.gameObject.SetActive(true);
-            await UniTask.Delay(TimeSpan.FromSeconds(attackDuration - attackDelayDuration));
+            await weapon.Attack();
             _isAttacking = false;
-            trailObject.gameObject.SetActive(false);
             animator.SetBool(KEY_ANIMATION_ATTACK, false);
         }
         
