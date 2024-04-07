@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace GamePlay.Characters
+﻿namespace GamePlay.Characters
 {
     public enum RangedHumanStateType
     {
@@ -9,10 +7,5 @@ namespace GamePlay.Characters
         Prepare,
         Attack,
         Dead
-    }
-
-    public class Test : StateMachineBehaviour
-    {
-        
     }
 }
