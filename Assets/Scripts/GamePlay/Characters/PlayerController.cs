@@ -1,14 +1,15 @@
-using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using GamePlay.Components;
 using GamePlay.Weapons;
+using Unity.XR.GoogleVr;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityTimer;
 
 namespace GamePlay.Characters
 {
-    public class PlayerController : Character
+    public class PlayerController : Character, IDamagable
     {
         private readonly int KEY_ANIMATION_MOVEMENT = Animator.StringToHash("IsMoving");
         private readonly int KEY_ANIMATION_ATTACK = Animator.StringToHash("IsAttacking");
@@ -26,6 +27,7 @@ namespace GamePlay.Characters
         [SerializeField] private float rollCooldown;
         [SerializeField] private GameObject trailObject;
         [SerializeField] private PlayerWeapon weapon;
+        [SerializeField] private Dash dash;
 
         private Rigidbody _rigidbody;
         private Vector3 _direction;
@@ -50,6 +52,12 @@ namespace GamePlay.Characters
             _playerInputActions = new PlayerInputActions();
             _playerInputActions.Ingame.Attack01.performed += (param) => ExecuteAttack01(param).Forget();
             _playerInputActions.Ingame.Roll.performed += ExecuteRoll;
+            dash.Initialize(() =>
+                {
+                    _isRolling = false;
+                    animator.SetBool(KEY_ANIMATION_ROLL, false);
+                }
+            );
         }
 
         private void ExecuteRoll(InputAction.CallbackContext obj)
@@ -62,14 +70,8 @@ namespace GamePlay.Characters
 
             _isRolling = true;
             animator.SetBool(KEY_ANIMATION_ROLL, true);
-            this._rigidbody.DOKill();
-            this._rigidbody.DOMove(view.position + view.forward * rollMoveDistanceMultiplier, rollDuration)
-                .OnComplete(() =>
-                    {
-                        _isRolling = false;
-                        animator.SetBool(KEY_ANIMATION_ROLL, false);
-                    }
-                );
+
+            dash.Execute(view.forward, rollMoveDistanceMultiplier, rollDuration);
         }
 
         private async UniTask ExecuteAttack01(InputAction.CallbackContext obj)
@@ -86,7 +88,7 @@ namespace GamePlay.Characters
             _isAttacking = false;
             animator.SetBool(KEY_ANIMATION_ATTACK, false);
         }
-        
+
         private void Move()
         {
             Vector2 input = _playerInputActions.Ingame.Movement.ReadValue<Vector2>();
@@ -129,6 +131,11 @@ namespace GamePlay.Characters
         private void OnDisable()
         {
             _playerInputActions.Ingame.Disable();
+        }
+
+        public void ApplyDamage(int value)
+        {
+            this.transform.DOPunchScale(Vector3.one, .2f, 5, 0);
         }
     }
 }
