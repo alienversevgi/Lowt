@@ -5,12 +5,12 @@ namespace GamePlay.Characters.Enemys
 {
     public class RangedHumanIdle : RangedHumanState
     {
-        [SerializeField] private SightOfHandler sightOfHandler;
+        [SerializeField] private SightArea sightArea;
         
         public override void Enter()
         {
-            sightOfHandler.OnEnterToSight.AddListener(PlayerEnterToSight);
-            sightOfHandler.enabled = true;
+            sightArea.OnEnterToSight.AddListener(PlayerEnterToSight);
+            sightArea.enabled = true;
             _view.AnimationHandler.Play(RangedHumanStateType.Idle);
         }
 
@@ -22,8 +22,8 @@ namespace GamePlay.Characters.Enemys
 
         public override void Exit()
         {
-            sightOfHandler.enabled = false;
-            sightOfHandler.OnEnterToSight.RemoveListener(PlayerEnterToSight);
+            sightArea.enabled = false;
+            sightArea.OnEnterToSight.RemoveListener(PlayerEnterToSight);
         }
     }
 }

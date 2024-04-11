@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe374c422e5f47f0adc50abeaa6b9d4a, type: 3}
   m_Name: ZombieData
   m_EditorClassIdentifier: 
-  Speed: 40
+  ShortCode: 
+  DamageDistance: 0
+  Speed: 2.5
+  ChaseSpeed: 5
+  ChaseIgnoreDuration: 1
+  AttackRange: 3.2
+  AttackMoveUnit: 4.5
+  AttackMoveSpeed: 0.5
+  StartSearchTime: 1

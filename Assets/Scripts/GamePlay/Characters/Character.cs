@@ -11,6 +11,11 @@ namespace GamePlay.Characters
 
         private void Awake()
         {
+            Initialize();
+        }
+
+        protected virtual void Initialize()
+        {
             _pathfActor = this.GetComponent<PathfActor>();
         }
 
@@ -18,6 +23,15 @@ namespace GamePlay.Characters
         {
             _pathfActor.MovePoint(point, onCompleted);
         }
-        
+
+        public virtual void Stop()
+        {
+            _pathfActor.Stop();
+        }
+
+        public void SetSpeed(float speed)
+        {
+            _pathfActor.SetSpeed(speed);
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace GamePlay.Characters.Enemys
     {
         private readonly int _state = Animator.StringToHash("State");
         
-        [SerializeField] private Animator animator;
+        [SerializeField] protected Animator animator;
         
         public void PlayTrigger(int id)
         {
@@ -26,6 +26,12 @@ namespace GamePlay.Characters.Enemys
         public bool GetBool(string key)
         {
             return animator.GetBool(key);
+        }
+
+        public float GetCurrentAnimationLength()
+        {
+            var clipInfo = animator.GetCurrentAnimatorClipInfo(0);
+            return clipInfo[0].clip.length;
         }
     }
 }

@@ -23,12 +23,22 @@ namespace GamePlay.Components
             canMove = true;
         }
 
+        public void Stop()
+        {
+            canMove = false;
+        }
+        
         public override void OnTargetReached()
         {
             base.OnTargetReached();
             _onComplete?.Invoke();
             _onComplete = null;
             canMove = false;
+        }
+
+        public void SetSpeed(float speed)
+        {
+            maxSpeed = speed;
         }
     }
 }

@@ -4,6 +4,7 @@
     {
         Idle,
         Run,
+        Charge,
         Attack,
         Impact,
         Dead

@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using Pathfinding.Util;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace GamePlay.Components
 {
-    public class SightOfHandler : MonoBehaviour
+    public class SightArea : MonoBehaviour
     {
         [SerializeField] private Transform rayPoint;
 
@@ -13,10 +13,23 @@ namespace GamePlay.Components
 
         public UnityEvent<GameObject> OnEnterToSight;
         public UnityEvent<GameObject> OnExitToSight;
+        private bool _isEnable;
 
         private void Awake()
         {
             SightOfObjects = new List<GameObject>();
+        }
+
+        public void SetEnable(bool isEnable)
+        {
+            _isEnable = isEnable;
+            this.gameObject.SetActive(_isEnable);
+        }
+
+        public void Reset()
+        {
+            OnEnterToSight.RemoveAllListeners();
+            OnExitToSight.RemoveAllListeners();
         }
 
         private void OnTriggerStay(Collider other)
@@ -30,7 +43,7 @@ namespace GamePlay.Components
                 RemoveToSight(other);
             }
         }
-        
+
         private void OnTriggerExit(Collider other)
         {
             RemoveToSight(other);
@@ -44,7 +57,7 @@ namespace GamePlay.Components
                 OnEnterToSight.Invoke(other.gameObject);
             }
         }
-        
+
         private void RemoveToSight(Collider other)
         {
             if (!SightOfObjects.Contains(other.gameObject))
@@ -60,7 +73,7 @@ namespace GamePlay.Components
             var direction = other.transform.position - rayPoint.position;
             Ray ray = new Ray(rayPoint.position, direction);
             RaycastHit hit;
-            Debug.DrawRay(ray.origin,ray.direction);
+            Debug.DrawRay(ray.origin, ray.direction);
             if (Physics.Raycast(ray, out hit))
             {
                 isOnSight = hit.transform.gameObject == other.gameObject;

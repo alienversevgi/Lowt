@@ -9,7 +9,13 @@ namespace GamePlay.Characters.Enemys
         public ZombieView View;
         public ZombieData Data;
 
-        public Transform Target { get; set; }
+        public Transform Target;
+
+        protected override void Initialize()
+        {
+            base.Initialize();
+            SetSpeed(Data.Speed);
+        }
 
         public override void Move(Vector3 point, Action callback)
         {

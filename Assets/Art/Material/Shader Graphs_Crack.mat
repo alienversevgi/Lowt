@@ -45,7 +45,7 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Value: 1
+    - _Value: -0.55
     - _X: 2.76
     - _Y: 5
     m_Colors:

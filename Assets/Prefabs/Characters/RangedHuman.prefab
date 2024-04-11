@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 147a0be53dde4f059ecd4c129a4b0248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightOfHandler: {fileID: 4749942334402269655}
+  sightArea: {fileID: 4749942334402269655}
 --- !u!114 &4850338522210890403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1135,7 +1135,7 @@ GameObject:
   - component: {fileID: 1571013886782612971}
   - component: {fileID: 6051345808245114582}
   m_Layer: 11
-  m_Name: SightOfView
+  m_Name: SightArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1268,7 +1268,7 @@ ParentConstraint:
   m_TranslationAtRest: {x: 0, y: 1.1999991, z: 2.5471}
   m_RotationAtRest: {x: 0, y: 0, z: 0}
   m_TranslationOffsets:
-  - {x: 0.0036172867, y: 1.7038398, z: 1.8893933}
+  - {x: 0.0036172867, y: 1.7038393, z: 1.8893919}
   m_RotationOffsets:
   - {x: -43.743526, y: 0.0016564236, z: 0.36878702}
   m_AffectTranslationX: 1

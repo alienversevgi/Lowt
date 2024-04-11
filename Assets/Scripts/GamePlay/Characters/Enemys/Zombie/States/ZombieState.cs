@@ -4,6 +4,8 @@
     {
         protected ZombieController _controller;
         protected ZombieView _view => _controller.View;
+
+        protected ZombieData _data => _controller.Data;
         protected StateController _stateController => _controller.StateController;
         
         public override void Initialize()

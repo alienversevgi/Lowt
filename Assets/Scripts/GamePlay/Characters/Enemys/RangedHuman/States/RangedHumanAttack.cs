@@ -23,7 +23,7 @@ namespace GamePlay.Characters.Enemys
             await UniTask.WaitWhile(() => _view.AnimationHandler.GetBool("IsAttackFrameReached") == false);
 
             var projectile = _view.GetProjectile();
-            projectile.Shoot(player.transform.position - this.transform.position, _controller.Data.ProjectileForce);
+            projectile.Shoot(player.transform.position - this.transform.position, _data.ProjectileForce);
             _controller.StateController.ChangeState(nameof(RangedHumanIdle));
         }
     }
