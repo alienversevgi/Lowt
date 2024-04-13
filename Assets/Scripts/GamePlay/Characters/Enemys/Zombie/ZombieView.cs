@@ -9,6 +9,8 @@ namespace GamePlay.Characters.Enemys
     {
         [SerializeField] private List<Material> materials;
         [SerializeField] private Renderer renderer;
+        [SerializeField] private RagdollEnabler ragdoll;
+        
         private MaterialPropertyBlock _materialPropertyBlock;
 
         public ZombieAnimationHandler AnimationHandler
@@ -47,6 +49,12 @@ namespace GamePlay.Characters.Enemys
             var target = current + .5f;
             SetHitMaterialEffect(target);
             await UniTask.Delay(TimeSpan.FromSeconds(AnimationHandler.GetCurrentAnimationLength()));
+        }
+
+        public void RunDead()
+        {
+            // AnimationHandler.Play(ZombieStateType.Dead);
+            ragdoll.Enable();
         }
     }
 }
