@@ -11,7 +11,7 @@ namespace GamePlay.Characters
 
         private State _currentState;
         private Dictionary<string, State> _states;
-
+        
         private void Start()
         {
             Initialize();

@@ -1,7 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using GamePlay.Components;
-using GamePlay.Weapons;
 using UnityEngine;
 
 namespace GamePlay.Characters.Enemys
@@ -34,6 +33,7 @@ namespace GamePlay.Characters.Enemys
         public override void Exit()
         {
             sightArea.SetEnable(false);
+            _controller.Stop();
             base.Exit();
         }
     }

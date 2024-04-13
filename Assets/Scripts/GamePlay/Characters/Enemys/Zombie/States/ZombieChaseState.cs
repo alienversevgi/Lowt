@@ -13,7 +13,8 @@ namespace GamePlay.Characters.Enemys
                                                            _controller.Target,
                                                            _data.AttackRange,
                                                            _data.ChaseIgnoreDuration,
-                                                           ReachedToIgnoreDistance
+                                                           ReachedToIgnoreDistance,
+                                                           ReachedToIgnoreDuration
                                           )
             );
         }
@@ -22,10 +23,16 @@ namespace GamePlay.Characters.Enemys
         {
             _stateController.ChangeState(nameof(ZombieAttackState));
         }
+        
+        private void ReachedToIgnoreDuration()
+        {
+            _stateController.ChangeState(nameof(ZombieAttackState));
+        }
 
         public override void Exit()
         {
             _controller.SetSpeed(_data.Speed);
+            FollowHandler.Instance.Ignore(_controller);
             base.Exit();
         }
     }

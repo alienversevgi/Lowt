@@ -6,5 +6,8 @@ namespace GamePlay.Characters.Enemys
     public class CharacterData : EntityData
     {
         [Header("Character")] public float Speed;
+        public float HP;
+        
+        public bool IsDead => HP <= 0;
     }
 }

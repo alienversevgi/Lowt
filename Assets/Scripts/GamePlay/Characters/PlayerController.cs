@@ -2,7 +2,6 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using GamePlay.Components;
 using GamePlay.Weapons;
-using Unity.XR.GoogleVr;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityTimer;
@@ -135,7 +134,7 @@ namespace GamePlay.Characters
 
         public void ApplyDamage(int value)
         {
-            this.transform.DOPunchScale(Vector3.one, .2f, 5, 0);
+            this.transform.DOPunchScale(Vector3.one*.5f, .2f, 5, 0);
         }
     }
 }
