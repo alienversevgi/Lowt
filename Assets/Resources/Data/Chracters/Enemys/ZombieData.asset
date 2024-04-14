@@ -15,7 +15,7 @@ MonoBehaviour:
   ShortCode: 
   DamageDistance: 0
   Speed: 2.5
-  HP: 1
+  HP: 30
   ChaseSpeed: 5
   ChaseIgnoreDuration: -1
   AttackRange: 3.2

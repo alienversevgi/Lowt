@@ -11,7 +11,7 @@ namespace GamePlay.Characters
 
         private State _currentState;
         private Dictionary<string, State> _states;
-        
+
         private void Start()
         {
             Initialize();
@@ -54,6 +54,11 @@ namespace GamePlay.Characters
 
             _currentState = state;
             _currentState.Enter();
+        }
+
+        public bool IsOnState(string stateName)
+        {
+            return _currentState.GetType().Name.Equals(stateName);
         }
     }
 }

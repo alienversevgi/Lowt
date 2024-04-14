@@ -2,6 +2,6 @@
 {
     public interface IDamagable
     {
-        void ApplyDamage(int value);
+        void ApplyDamage(DamageData data);
     }
 }

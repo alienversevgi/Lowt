@@ -6,16 +6,16 @@ using Range = GamePlay.Components.Range;
 
 namespace GamePlay.Characters.Enemys
 {
-    public class ZombieController : Enemy , IDamagable
+    public class ZombieController : Enemy, IDamagable
     {
         [SerializeField] private Range range;
-        
+
         public StateController StateController;
         public ZombieView View;
         public ZombieData Data;
 
         public Transform Target;
-        
+
         protected override void Initialize()
         {
             base.Initialize();
@@ -42,9 +42,9 @@ namespace GamePlay.Characters.Enemys
             }
         }
 
-        public void ApplyDamage(int value)
+        public void ApplyDamage(DamageData data)
         {
-            Data.HP -= value;
+            Data.HP -= data.Amount;
             if (Data.HP <= 0)
             {
                 StateController.ChangeState(nameof(ZombieDeadState));
@@ -52,6 +52,11 @@ namespace GamePlay.Characters.Enemys
             else
             {
                 View.PlayHitReaction().Forget();
+                if (StateController.IsOnState(nameof(ZombieMoveState)))
+                {
+                    Target = data.Owner.transform;
+                    StateController.ChangeState(nameof(ZombieChaseState));
+                }
             }
         }
 

@@ -27,7 +27,7 @@ namespace GamePlay.Characters.Enemys
                 var duration = _view.AnimationHandler.AttackAnimationLength;
                 await UniTask.Delay(TimeSpan.FromSeconds(duration * .2f));
                 if (await _controller.IsTargetDamageable())
-                    _controller.Target.GetComponent<IDamagable>().ApplyDamage(10);
+                    _controller.Target.GetComponent<IDamagable>().ApplyDamage(new DamageData(_controller.gameObject,10));
 
                 await UniTask.Delay(TimeSpan.FromSeconds(duration * .8f));
             }

@@ -2438,10 +2438,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1966639825}
     m_Modifications:
+    - target: {fileID: 2889065444708199792, guid: b3205841b2c54e84e941859841c61959,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6167062138974328233, guid: b3205841b2c54e84e941859841c61959,
         type: 3}
       propertyPath: m_Name
       value: Camp fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 6167062138974328233, guid: b3205841b2c54e84e941859841c61959,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6835935351536815891, guid: b3205841b2c54e84e941859841c61959,
         type: 3}

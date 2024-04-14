@@ -10,7 +10,7 @@ namespace GamePlay.Weapons
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackDelayDuration;
         [SerializeField] private Collider collider;
-        
+
         public async UniTask Attack()
         {
             await UniTask.Delay(TimeSpan.FromSeconds(attackDelayDuration));
@@ -23,11 +23,11 @@ namespace GamePlay.Weapons
 
         private void OnTriggerEnter(Collider other)
         {
-             var target = other.GetComponent<IDamagable>();
-             if (target == null)
-                 return;
-             
-             target.ApplyDamage(10);
+            var target = other.GetComponent<IDamagable>();
+            if (target == null)
+                return;
+
+            target.ApplyDamage(new DamageData(this.transform.parent.gameObject, 10));
         }
     }
 }

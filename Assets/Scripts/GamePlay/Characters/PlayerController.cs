@@ -132,7 +132,7 @@ namespace GamePlay.Characters
             _playerInputActions.Ingame.Disable();
         }
 
-        public void ApplyDamage(int value)
+        public void ApplyDamage(DamageData data)
         {
             this.transform.DOPunchScale(Vector3.one*.5f, .2f, 5, 0);
         }
