@@ -17,7 +17,10 @@ MonoBehaviour:
   Speed: 2.5
   HP: 30
   ChaseSpeed: 5
+  EntityDamage: 0
+  BuildingDamage: 2
   ChaseIgnoreDuration: -1
+  DestructRate: 0.1
   AttackRange: 3.2
   AttackMoveUnit: 4.5
   AttackMoveSpeed: 0.5

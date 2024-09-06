@@ -14,7 +14,7 @@ namespace GamePlay.Characters.Enemys
             base.Enter();
             _view.AnimationHandler.PlayMove();
             StartSightControl().Forget();
-            _controller.Move(Vector3.zero, () => StartSightControl().Forget());
+            _controller.Move(_controller.DestructableTarget.position, () => _stateController.ChangeState(nameof(ZombieDestructState)));
         }
 
         private async UniTask StartSightControl()
@@ -26,7 +26,7 @@ namespace GamePlay.Characters.Enemys
 
         private void OnEnterToSight(GameObject enteredObject)
         {
-            _controller.Target = enteredObject.transform;
+            _controller.DamagableTarget = enteredObject.transform;
             _stateController.ChangeState(nameof(ZombieChaseState));
         }
 

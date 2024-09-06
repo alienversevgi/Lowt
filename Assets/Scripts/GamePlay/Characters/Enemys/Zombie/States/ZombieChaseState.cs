@@ -10,7 +10,7 @@ namespace GamePlay.Characters.Enemys
             _controller.SetSpeed(_data.ChaseSpeed);
             _view.AnimationHandler.PlayRun();
             FollowHandler.Instance.Follow(new FollowerData(_controller,
-                                                           _controller.Target,
+                                                           _controller.DamagableTarget,
                                                            _data.AttackRange,
                                                            _data.ChaseIgnoreDuration,
                                                            ReachedToIgnoreDistance,
@@ -26,7 +26,7 @@ namespace GamePlay.Characters.Enemys
         
         private void ReachedToIgnoreDuration()
         {
-            _stateController.ChangeState(nameof(ZombieAttackState));
+            _stateController.ChangeState(nameof(ZombieMoveState));
         }
 
         public override void Exit()

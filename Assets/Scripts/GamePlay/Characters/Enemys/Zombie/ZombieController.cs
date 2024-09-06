@@ -6,7 +6,7 @@ using Range = GamePlay.Components.Range;
 
 namespace GamePlay.Characters.Enemys
 {
-    public class ZombieController : Enemy, IDamagable
+    public class ZombieController : Enemy, IDamageable
     {
         [SerializeField] private Range range;
 
@@ -14,7 +14,8 @@ namespace GamePlay.Characters.Enemys
         public ZombieView View;
         public ZombieData Data;
 
-        public Transform Target;
+        public Transform DamagableTarget;
+        public Transform DestructableTarget;
 
         protected override void Initialize()
         {
@@ -54,15 +55,15 @@ namespace GamePlay.Characters.Enemys
                 View.PlayHitReaction().Forget();
                 if (StateController.IsOnState(nameof(ZombieMoveState)))
                 {
-                    Target = data.Owner.transform;
+                    DamagableTarget = data.Owner.transform;
                     StateController.ChangeState(nameof(ZombieChaseState));
                 }
             }
         }
 
-        public async UniTask<bool> IsTargetDamageable()
+        public async UniTask<bool> IsTargetOnRange()
         {
-            return await range.IsOnRange(Target.gameObject);
+            return await range.IsOnRange(DamagableTarget.gameObject);
         }
     }
 }

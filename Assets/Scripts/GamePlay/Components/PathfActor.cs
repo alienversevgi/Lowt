@@ -33,7 +33,7 @@ namespace GamePlay.Components
             base.OnTargetReached();
             _onComplete?.Invoke();
             _onComplete = null;
-            canMove = false;
+            Stop();
         }
 
         public void SetSpeed(float speed)

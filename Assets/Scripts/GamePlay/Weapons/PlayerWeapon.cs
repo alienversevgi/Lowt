@@ -23,7 +23,7 @@ namespace GamePlay.Weapons
 
         private void OnTriggerEnter(Collider other)
         {
-            var target = other.GetComponent<IDamagable>();
+            var target = other.GetComponent<IDamageable>();
             if (target == null)
                 return;
 

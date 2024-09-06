@@ -6,7 +6,11 @@ namespace GamePlay.Characters.Enemys
     public class ZombieData : CharacterData
     {
         [Header("Zombie")] public float ChaseSpeed;
+
+        public int EntityDamage;
+        public int BuildingDamage;
         public float ChaseIgnoreDuration;
+        public float DestructRate;
         public float AttackRange;
         public float AttackMoveUnit;
         public float AttackMoveSpeed;

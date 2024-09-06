@@ -21,31 +21,32 @@ namespace GamePlay.Characters.Enemys
 
         private async UniTask RunAttackSequence()
         {
-            async Task Attack()
-            {
-                _view.AnimationHandler.Play(ZombieStateType.Attack);
-                var duration = _view.AnimationHandler.AttackAnimationLength;
-                await UniTask.Delay(TimeSpan.FromSeconds(duration * .2f));
-                if (await _controller.IsTargetDamageable())
-                    _controller.Target.GetComponent<IDamagable>().ApplyDamage(new DamageData(_controller.gameObject,10));
-
-                await UniTask.Delay(TimeSpan.FromSeconds(duration * .8f));
-            }
-
-            void Dash()
-            {
-                this.transform.DOLookAt(_controller.Target.position, .2f);
-                var direction = _controller.Target.position - this.transform.position;
-                direction.Normalize();
-                dash.Execute(direction, _data.AttackMoveUnit, _data.AttackMoveSpeed);
-            }
-
             _view.AnimationHandler.Play(ZombieStateType.Charge);
             await UniTask.Delay(TimeSpan.FromSeconds(.5f));
             Dash();
             await Attack();
             if (!_data.IsDead)
                 _stateController.ChangeState(nameof(ZombieChaseState));
+            
+            async Task Attack()
+            {
+                _view.AnimationHandler.Play(ZombieStateType.Attack);
+                var duration = _view.AnimationHandler.AttackAnimationLength;
+                await UniTask.Delay(TimeSpan.FromSeconds(duration * .2f));
+                if (await _controller.IsTargetOnRange())
+                    _controller.DamagableTarget.GetComponent<IDamageable>().ApplyDamage(new DamageData(_controller.gameObject,_data.EntityDamage));
+
+                await UniTask.Delay(TimeSpan.FromSeconds(duration * .8f));
+            }
+
+            void Dash()
+            {
+                var targetPosition = _controller.DamagableTarget.position;
+                this.transform.DOLookAt(targetPosition, .2f);
+                var direction = targetPosition - this.transform.position;
+                direction.Normalize();
+                dash.Execute(direction, _data.AttackMoveUnit, _data.AttackMoveSpeed);
+            }
         }
 
         public override void Exit()

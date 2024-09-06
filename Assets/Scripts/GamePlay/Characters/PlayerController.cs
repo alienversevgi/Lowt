@@ -8,7 +8,7 @@ using UnityTimer;
 
 namespace GamePlay.Characters
 {
-    public class PlayerController : Character, IDamagable
+    public class PlayerController : Character, IDamageable
     {
         private readonly int KEY_ANIMATION_MOVEMENT = Animator.StringToHash("IsMoving");
         private readonly int KEY_ANIMATION_ATTACK = Animator.StringToHash("IsAttacking");

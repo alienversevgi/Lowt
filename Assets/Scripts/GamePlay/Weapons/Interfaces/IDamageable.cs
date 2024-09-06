@@ -1,6 +1,6 @@
 ﻿namespace GamePlay.Weapons
 {
-    public interface IDamagable
+    public interface IDamageable
     {
         void ApplyDamage(DamageData data);
     }
