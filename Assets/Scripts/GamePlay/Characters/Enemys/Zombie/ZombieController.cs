@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using GamePlay.Weapons;
 using UnityEngine;
 using Range = GamePlay.Components.Range;
@@ -46,19 +47,28 @@ namespace GamePlay.Characters.Enemys
         public void ApplyDamage(DamageData data)
         {
             Data.HP -= data.Amount;
-            if (Data.HP <= 0)
-            {
-                StateController.ChangeState(nameof(ZombieDeadState));
-            }
-            else
-            {
-                View.PlayHitReaction().Forget();
-                if (StateController.IsOnState(nameof(ZombieMoveState)))
-                {
-                    DamagableTarget = data.Owner.transform;
-                    StateController.ChangeState(nameof(ZombieChaseState));
-                }
-            }
+            DamagableTarget = data.Owner.transform;
+
+            var hitReactionState = StateController.GetState<ZombieHitReactionState>();
+            hitReactionState.SetDamageData(data);
+            StateController.ChangeState(nameof(ZombieHitReactionState));
+            
+            // if (Data.HP <= 0)
+            // {
+            //     StateController.ChangeState(nameof(ZombieDeadState));
+            // }
+            // else
+            // {
+            //     var diff =  this.transform.position - data.Owner.transform.position;
+            //     var point = this.transform.position - diff.normalized * -2;
+            //
+            //     this.transform.DOMove(point, 0.5f);
+            //     View.PlayHitReaction().Forget();
+            //     if (StateController.IsOnState(nameof(ZombieMoveState)))
+            //     {
+            //         StateController.ChangeState(nameof(ZombieChaseState));
+            //     }
+            // }
         }
 
         public async UniTask<bool> IsTargetOnRange()

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GamePlay.Characters.Enemys
+namespace GamePlay.Characters
 {
     public class AnimationHandler : MonoBehaviour
     {

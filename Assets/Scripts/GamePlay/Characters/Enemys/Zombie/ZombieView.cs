@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
 namespace GamePlay.Characters.Enemys
@@ -45,6 +46,8 @@ namespace GamePlay.Characters.Enemys
 
         public async UniTask PlayHitReaction()
         {
+            AnimationHandler.Play(ZombieStateType.Impact);
+
             var current = _materialPropertyBlock.GetFloat("_Value");
             var target = current + .5f;
             SetHitMaterialEffect(target);
