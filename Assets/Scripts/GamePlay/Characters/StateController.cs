@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GamePlay.Characters.Enemys;
 using UnityEngine;
 
 namespace GamePlay.Characters
@@ -21,7 +22,7 @@ namespace GamePlay.Characters
         {
             _states = new Dictionary<string, State>();
             var states = this.GetComponents<State>().ToList();
-            for (int i = 0; i <states.Count; i++)
+            for (int i = 0; i < states.Count; i++)
             {
                 var stateType = states[i].GetType();
                 states[i].Initialize();
@@ -54,6 +55,16 @@ namespace GamePlay.Characters
 
             _currentState = state;
             _currentState.Enter();
+        }
+
+        public T GetState<T>() where T : State
+        {
+            return (T)_states[typeof(T).Name];
+        }
+
+        public bool IsOnState(string stateName)
+        {
+            return _currentState.GetType().Name.Equals(stateName);
         }
     }
 }
