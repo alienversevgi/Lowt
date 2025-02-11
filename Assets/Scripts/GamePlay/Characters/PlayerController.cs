@@ -68,7 +68,7 @@ namespace GamePlay.Characters
             animator.speed = 1;
             animator.SetInteger(KEY_ANIMATION_STATE, 3);
             await weapon.Attack();
-             SetIdleState();
+            SetIdleState();
         }
 
         private void Move()

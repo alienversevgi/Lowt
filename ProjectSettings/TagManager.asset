@@ -19,8 +19,8 @@ TagManager:
   - EnemySightOfView
   - Projectile
   - PlayerWeapon
-  - 
-  - 
+  - Collectable
+  - Collector
   - 
   - 
   - 

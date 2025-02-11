@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _BaseY.Utils;
 using Cysharp.Threading.Tasks.Triggers;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
 {
@@ -17,7 +19,20 @@ namespace DefaultNamespace
         public int numJumps;
         private List<GameObject> Olds = new List<GameObject>();
         public int numbers;
-        
+
+        private void Awake()
+        {
+            Multiple();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                Multiple();
+            }
+        }
+
         [Button]
         public void Multiple()
         {
@@ -34,7 +49,7 @@ namespace DefaultNamespace
             clone.transform.localScale = Vector3.zero;
             clone.transform.DOScale(Vector3.one * .5f, duration *.6f).SetEase(Ease.OutBounce);
             clone.transform.DOJump(GetPoint(), jumpPower, numJumps, duration).SetEase(Ease.OutBack);
-            
+            clone.GetComponent<TestBlood>().SetReady();
             Olds.Add(clone);
         }
 
