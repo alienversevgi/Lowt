@@ -20,7 +20,7 @@ namespace GamePlay.Characters.Enemys
             base.Enter();
             _cancellationTokenSource = new CancellationTokenSource();
             roll.Initialize(_data.AttackMoveUnit, _data.AttackMoveSpeed);
-            roll.SetOnComplete(DetermineNextState);
+            roll.SetOnComplete(()=> DetermineNextState().Forget());
             RunAttackSequence().Forget();
         }
 
@@ -55,8 +55,13 @@ namespace GamePlay.Characters.Enemys
             }
         }
 
-        private void DetermineNextState()
+        private async UniTask DetermineNextState()
         {
+            if (_data.IsDead)
+                return;
+            _view.AnimationHandler.Play(ZombieStateType.Idle);
+            await UniTask.Delay(TimeSpan.FromSeconds(1f));
+            
             if (_data.IsDead)
                 return;
             

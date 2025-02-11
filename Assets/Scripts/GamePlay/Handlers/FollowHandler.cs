@@ -47,30 +47,17 @@ namespace GamePlay.Handler
             {
                 Ignore(data.Owner);
                 data.ReachedToIgnoreDistance?.Invoke();
-                Debug.LogError("Distance");
 
             }
             else if (data.IgnoreDuration != -1 && data.TotalFollowDuration >= data.IgnoreDuration)
             {
                 Ignore(data.Owner);
                 data.ReachedToIgnoreDuration?.Invoke();
-                Debug.LogError("Time");
             }
             else
             {
                 data.Owner.Move(data.Target.position, null);
             }
-          
-            // if (distance > data.IgnoreDistance)
-            // {
-            //     data.Owner.Move(data.Target.position, null);
-            // }
-            // else
-            // {
-            //     Ignore(data.Owner);
-            //     data.ReachedToIgnoreDistance?.Invoke();
-            //     Debug.LogError("EX");
-            // }
         }
     }
 
