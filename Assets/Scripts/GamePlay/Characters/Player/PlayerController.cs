@@ -4,20 +4,14 @@ using GamePlay.Components;
 using GamePlay.Weapons;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Timer = UnityTimer.Timer;
 
 namespace GamePlay.Characters
 {
     public class PlayerController : Character, IDamageable
     {
-        private readonly int KEY_ANIMATION_STATE = Animator.StringToHash("State");
-
-        [SerializeField] private Animator animator;
+        [SerializeField] private PlayerAnimationHandler animationHandler;
         [SerializeField] private Transform view;
         [SerializeField] private float moveSpeed;
-        [SerializeField] private float attackMoveStepValue;
-        [SerializeField] private float attackCooldown;
-        [SerializeField] private GameObject trailObject;
         [SerializeField] private PlayerWeapon weapon;
         [SerializeField] private Roll roll;
 
@@ -56,7 +50,7 @@ namespace GamePlay.Characters
                 return;
 
             roll.Execute(view.forward);
-            animator.SetInteger(KEY_ANIMATION_STATE, 2);
+            animationHandler.Play(PlayerAnimationState.Rolling);
         }
 
         private async UniTask ExecuteAttack01(InputAction.CallbackContext obj)
@@ -64,9 +58,7 @@ namespace GamePlay.Characters
             if (!_isAttackAvailable)
                 return;
 
-            // SetIdleState();
-            animator.speed = 1;
-            animator.SetInteger(KEY_ANIMATION_STATE, 3);
+            animationHandler.Play(PlayerAnimationState.Attacking);
             await weapon.Attack();
             SetIdleState();
         }
@@ -89,10 +81,9 @@ namespace GamePlay.Characters
             }
 
             view.transform.DOLookAt(transform.position + _direction, .3f, AxisConstraint.Y, Vector3.up);
-            var x = _direction * moveSpeed * Time.deltaTime;
-            _rigidbody.MovePosition(this.transform.position + x);
-            animator.speed = 3 * _direction.magnitude;
-            animator.SetInteger(KEY_ANIMATION_STATE, 1);
+            var newPosition = this.transform.position + (_direction * moveSpeed * Time.deltaTime);
+            _rigidbody.MovePosition(newPosition);
+            animationHandler.Play(PlayerAnimationState.Moving, 3 * _direction.magnitude);
         }
 
         private void SetIdleState()
@@ -102,8 +93,7 @@ namespace GamePlay.Characters
 
             _isMoving = false;
             _isIdle = true;
-            animator.speed = 1;
-            animator.SetInteger(KEY_ANIMATION_STATE, 0);
+            animationHandler.Play(PlayerAnimationState.Idle);
         }
 
         private void FixedUpdate()
