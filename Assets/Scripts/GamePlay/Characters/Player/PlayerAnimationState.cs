@@ -5,6 +5,7 @@
         Idle,
         Moving,
         Rolling,
-        Attacking,
+        SwordSlash01,
+        SwordSlash02
     }
 }

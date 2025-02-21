@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using GamePlay.Components;
 using GamePlay.Weapons;
+using GamePlay.Weapons.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,10 +10,9 @@ namespace GamePlay.Characters
 {
     public class PlayerController : Character, IDamageable
     {
-        [SerializeField] private PlayerAnimationHandler animationHandler;
-        [SerializeField] private Transform view;
+        [SerializeField] private PlayerView view;
         [SerializeField] private float moveSpeed;
-        [SerializeField] private PlayerWeapon weapon;
+        [SerializeField] private PlayerSwordWeapon sword;
         [SerializeField] private Roll roll;
 
         private Rigidbody _rigidbody;
@@ -24,14 +24,14 @@ namespace GamePlay.Characters
         private bool _isMoving;
         private bool _isIdle;
 
-        private bool _isMovingAvailable => !roll.IsExecuting && !weapon.IsExecuting;
+        private bool _isMovingAvailable => !roll.IsExecuting && !sword.IsExecuting;
 
         private bool _isRollingAvailable =>
-            _isMoving && !weapon.IsExecuting && !roll.IsExecuting && roll.IsAvailable;
+            !sword.IsExecuting && !roll.IsExecuting && roll.IsAvailable;
 
-        private bool _isAttackAvailable => !roll.IsExecuting && weapon.IsAvailable;
+        private bool _isAttackAvailable => !roll.IsExecuting && sword.IsAvailable;
 
-        public Transform View => view;
+        public PlayerView View => view;
 
         private void Awake()
         {
@@ -41,7 +41,8 @@ namespace GamePlay.Characters
             _playerInputActions.Ingame.Roll.performed += ExecuteRoll;
             roll.Initialize();
             roll.SetOnComplete(OnRollCompleted);
-            weapon.Initialize(this);
+            sword.Initialize(this);
+            sword.SetStyle(PlayerSwordStyle.Combo);
         }
 
         private void ExecuteRoll(InputAction.CallbackContext obj)
@@ -49,8 +50,8 @@ namespace GamePlay.Characters
             if (!_isRollingAvailable || roll.IsExecuting)
                 return;
 
-            roll.Execute(view.forward);
-            animationHandler.Play(PlayerAnimationState.Rolling);
+            roll.Execute(view.transform.forward);
+            view.AnimationHandler.Play(PlayerAnimationState.Rolling);
         }
 
         private async UniTask ExecuteAttack01(InputAction.CallbackContext obj)
@@ -58,9 +59,8 @@ namespace GamePlay.Characters
             if (!_isAttackAvailable)
                 return;
 
-            animationHandler.Play(PlayerAnimationState.Attacking);
-            await weapon.Attack();
-            SetIdleState();
+            await sword.Attack();
+            //SetIdleState();
         }
 
         private void Move()
@@ -80,10 +80,10 @@ namespace GamePlay.Characters
                 return;
             }
 
-            view.transform.DOLookAt(transform.position + _direction, .3f, AxisConstraint.Y, Vector3.up);
+            view.transform.DOLookAt(transform.position + _direction, .2f, AxisConstraint.Y, Vector3.up);
             var newPosition = this.transform.position + (_direction * moveSpeed * Time.deltaTime);
             _rigidbody.MovePosition(newPosition);
-            animationHandler.Play(PlayerAnimationState.Moving, 3 * _direction.magnitude);
+            view.AnimationHandler.Play(PlayerAnimationState.Moving, 3 * _direction.magnitude);
         }
 
         private void SetIdleState()
@@ -93,7 +93,7 @@ namespace GamePlay.Characters
 
             _isMoving = false;
             _isIdle = true;
-            animationHandler.Play(PlayerAnimationState.Idle);
+            view.AnimationHandler.Play(PlayerAnimationState.Idle);
         }
 
         private void FixedUpdate()

@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using GamePlay.Characters;
 using UnityEngine;
-using UnityTimer;
 
 namespace GamePlay.Weapons
 {
@@ -32,7 +31,7 @@ namespace GamePlay.Weapons
         {
             IsExecuting = true;
             IsAvailable = false;
-            _player.transform.DOMove(_player.View.position + _player.View.forward * moveStepValue, .2f);
+            _player.transform.DOMove(_player.View.transform.position + _player.View.transform.forward * moveStepValue, .2f);
             
             await UniTask.Delay(TimeSpan.FromSeconds(.2f));
             trailObject.gameObject.SetActive(true);
