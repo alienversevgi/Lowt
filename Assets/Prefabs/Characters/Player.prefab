@@ -841,18 +841,14 @@ MonoBehaviour:
   slashEffects:
   - {fileID: 6129014537012236019}
   - {fileID: 8588457022043984081}
-  trailObject: {fileID: 8597550458583869434}
-  trailObject2: {fileID: 6155950653355506136}
   collider: {fileID: 5407850635566890580}
   cooldown: 0.2
-  duration: 0.5
+  duration: 0.3
   moveStepValue: 1
   startDelay: 0.08
-  xDelay: 0.25
-  nextInterruptDuration: 0.25
-  colliderDisabledValue: 0.42000002
-  slashEndDuration: 0.42
-  comboResetDurationAfterFirst: 0.1
+  nextInterruptDuration: 0.01
+  slashEndDuration: 0.2
+  comboResetDuration: 0.15
 --- !u!1 &6438486132299617281
 GameObject:
   m_ObjectHideFlags: 0
@@ -2011,12 +2007,6 @@ VisualEffect:
     type: 3}
   m_PrefabInstance: {fileID: 4894820742501354787}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8597550458583869434 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3800271859348581081, guid: f3569bffc51aaea4bb51b8a7e6a9e22b,
-    type: 3}
-  m_PrefabInstance: {fileID: 4894820742501354787}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5854119361079580161
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2202,12 +2192,6 @@ PrefabInstance:
 --- !u!4 &1115217920361527057 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7973939068527993872, guid: f3569bffc51aaea4bb51b8a7e6a9e22b,
-    type: 3}
-  m_PrefabInstance: {fileID: 7048999419654705921}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6155950653355506136 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3800271859348581081, guid: f3569bffc51aaea4bb51b8a7e6a9e22b,
     type: 3}
   m_PrefabInstance: {fileID: 7048999419654705921}
   m_PrefabAsset: {fileID: 0}

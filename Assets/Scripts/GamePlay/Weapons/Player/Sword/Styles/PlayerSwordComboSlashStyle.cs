@@ -5,7 +5,6 @@ using DG.Tweening;
 using GamePlay.Characters;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.VFX;
 
 namespace GamePlay.Weapons.Player.Styles
