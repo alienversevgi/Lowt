@@ -5,6 +5,8 @@
         Idle,
         Moving,
         Rolling,
+        Death,
+        GettingUp,
         SwordSlash01,
         SwordSlash02
     }

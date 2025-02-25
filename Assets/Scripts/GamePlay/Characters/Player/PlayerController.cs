@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using GamePlay.Components;
@@ -12,6 +13,7 @@ namespace GamePlay.Characters
     {
         [SerializeField] private PlayerView view;
         [SerializeField] private float moveSpeed;
+        [SerializeField] private PlayerHitReactionHandler hitReaction;
         [SerializeField] private PlayerSwordWeapon sword;
         [SerializeField] private Roll roll;
 
@@ -24,12 +26,14 @@ namespace GamePlay.Characters
         private bool _isMoving;
         private bool _isIdle;
 
-        private bool _isMovingAvailable => !roll.IsExecuting && !sword.IsExecuting;
+        private bool _isMovingAvailable => !_isHitReactionExecuting && !roll.IsExecuting && !sword.IsExecuting;
 
         private bool _isRollingAvailable =>
-            !sword.IsExecuting && !roll.IsExecuting && roll.IsAvailable;
+            !_isHitReactionExecuting && !sword.IsExecuting && !roll.IsExecuting && roll.IsAvailable;
 
-        private bool _isAttackAvailable => !roll.IsExecuting && sword.IsAvailable;
+        private bool _isAttackAvailable => !_isHitReactionExecuting && !roll.IsExecuting && sword.IsAvailable;
+
+        private bool _isHitReactionExecuting => hitReaction.IsExecuting;
 
         public PlayerView View => view;
 
@@ -39,6 +43,7 @@ namespace GamePlay.Characters
             _playerInputActions = new PlayerInputActions();
             _playerInputActions.Ingame.Attack01.performed += (param) => ExecuteAttack01(param).Forget();
             _playerInputActions.Ingame.Roll.performed += ExecuteRoll;
+            hitReaction.Initialize(this);
             roll.Initialize();
             roll.SetOnComplete(OnRollCompleted);
             sword.Initialize(this);
@@ -60,7 +65,6 @@ namespace GamePlay.Characters
                 return;
 
             await sword.Attack();
-            //SetIdleState();
         }
 
         private void Move()
@@ -80,7 +84,7 @@ namespace GamePlay.Characters
                 return;
             }
 
-            view.transform.DOLookAt(transform.position + _direction, .2f, AxisConstraint.Y, Vector3.up);
+            this.transform.DOLookAt(transform.position + _direction, .2f, AxisConstraint.Y, Vector3.up);
             var newPosition = this.transform.position + (_direction * moveSpeed * Time.deltaTime);
             _rigidbody.MovePosition(newPosition);
             view.AnimationHandler.Play(PlayerAnimationState.Moving, 3 * _direction.magnitude);
@@ -88,7 +92,7 @@ namespace GamePlay.Characters
 
         private void SetIdleState()
         {
-            if (_isMoving)
+            if (_isMoving || _isHitReactionExecuting)
                 return;
 
             _isMoving = false;
@@ -118,7 +122,10 @@ namespace GamePlay.Characters
 
         public void ApplyDamage(DamageData data)
         {
-            this.transform.DOPunchScale(Vector3.one * .5f, .2f, 5, 0);
+            if (_isHitReactionExecuting)
+                return;
+
+            hitReaction.Execute(data).Forget();
         }
     }
 }
