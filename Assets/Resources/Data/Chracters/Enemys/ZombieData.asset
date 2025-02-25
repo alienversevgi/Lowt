@@ -25,3 +25,4 @@ MonoBehaviour:
   AttackMoveUnit: 4.5
   AttackMoveSpeed: 0.5
   StartSearchTime: 1
+  AfterAttackWaitDuration: 1.5

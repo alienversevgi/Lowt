@@ -54,7 +54,7 @@ namespace GamePlay.Components
         public async UniTask<bool> IsOnRange(GameObject target)
         {
             SetEnable(true);
-            await UniTask.DelayFrame(3);
+            await UniTask.Delay(100);
             bool result = Objects.Contains(target);
             SetEnable(false);
             return result;

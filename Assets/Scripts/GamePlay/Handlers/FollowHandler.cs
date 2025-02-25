@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cinemachine;
 using GamePlay.Characters;
 using UnityEngine;
+using UnityEngine.Events;
 using Timer = UnityTimer.Timer;
 
 namespace GamePlay.Handler
@@ -47,15 +49,21 @@ namespace GamePlay.Handler
             {
                 Ignore(data.Owner);
                 data.ReachedToIgnoreDistance?.Invoke();
-
             }
             else if (data.IgnoreDuration != -1 && data.TotalFollowDuration >= data.IgnoreDuration)
             {
                 Ignore(data.Owner);
-                data.ReachedToIgnoreDuration?.Invoke();
+                data.OnReachedToIgnoreDuration?.Invoke();
             }
             else
             {
+                if (!data.IsMovingStarted)
+                {
+                    data.IsMovingStarted = true;
+                    data.OnMoveStarted?.Invoke();
+                }
+
+                data.OnMoving?.Invoke();
                 data.Owner.Move(data.Target.position, null);
             }
         }
@@ -68,9 +76,12 @@ namespace GamePlay.Handler
         public float CheckTime;
         public float IgnoreDistance;
         public float IgnoreDuration;
-        public Action ReachedToIgnoreDistance;
-        public Action ReachedToIgnoreDuration;
+        public UnityEvent ReachedToIgnoreDistance { get; private set; }
+        public UnityEvent OnReachedToIgnoreDuration { get; private set; }
+        public UnityEvent OnMoving { get; private set; }
+        public UnityEvent OnMoveStarted { get; private set; }
         public float TotalFollowDuration;
+        public bool IsMovingStarted;
 
         public FollowerData
         (
@@ -78,8 +89,6 @@ namespace GamePlay.Handler
             Transform target,
             float ignoreDistance = -1,
             float ignoreDuration = -1,
-            Action reachedToIgnoreDistance = null,
-            Action reachedToIgnoreDuration = null,
             float checkTime = .1f
         )
         {
@@ -88,9 +97,12 @@ namespace GamePlay.Handler
             CheckTime = checkTime;
             IgnoreDistance = ignoreDistance;
             IgnoreDuration = ignoreDuration;
-            ReachedToIgnoreDistance = reachedToIgnoreDistance;
-            ReachedToIgnoreDuration = reachedToIgnoreDuration;
+            ReachedToIgnoreDistance = new();
+            OnReachedToIgnoreDuration = new();
             TotalFollowDuration = 0;
+            OnMoving = new();
+            OnMoveStarted = new();
+            IsMovingStarted = false;
         }
     }
 }

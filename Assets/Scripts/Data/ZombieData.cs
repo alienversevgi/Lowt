@@ -15,5 +15,6 @@ namespace GamePlay.Characters.Enemys
         public float AttackMoveUnit;
         public float AttackMoveSpeed;
         public float StartSearchTime;
+        public float AfterAttackWaitDuration;
     }
 }

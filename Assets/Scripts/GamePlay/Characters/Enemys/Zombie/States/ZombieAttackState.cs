@@ -60,7 +60,7 @@ namespace GamePlay.Characters.Enemys
             if (_data.IsDead)
                 return;
             _view.AnimationHandler.Play(ZombieStateType.Idle);
-            await UniTask.Delay(TimeSpan.FromSeconds(1f));
+            await UniTask.Delay(TimeSpan.FromSeconds(_data.AfterAttackWaitDuration));
             
             if (_data.IsDead)
                 return;
