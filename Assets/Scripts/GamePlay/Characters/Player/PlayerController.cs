@@ -1,9 +1,9 @@
-using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using GamePlay.Components;
 using GamePlay.Weapons;
 using GamePlay.Weapons.Player;
+using GamePlay.Weapons.Player.Test;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +15,7 @@ namespace GamePlay.Characters
         [SerializeField] private float moveSpeed;
         [SerializeField] private PlayerHitReactionHandler hitReaction;
         [SerializeField] private PlayerSwordWeapon sword;
+        [SerializeField] private PlayerWeaponTest testWeapon;
         [SerializeField] private Roll roll;
 
         private Rigidbody _rigidbody;
@@ -26,28 +27,43 @@ namespace GamePlay.Characters
         private bool _isMoving;
         private bool _isIdle;
 
-        private bool _isMovingAvailable => !_isHitReactionExecuting && !roll.IsExecuting && !sword.IsExecuting;
+        private bool _isMovingAvailable => !_isHitReactionExecuting && !roll.IsExecuting && !sword.IsExecuting();
 
         private bool _isRollingAvailable =>
-            !_isHitReactionExecuting && !sword.IsExecuting && !roll.IsExecuting && roll.IsAvailable;
+            !_isHitReactionExecuting && !sword.IsExecuting() && !roll.IsExecuting && roll.IsAvailable;
 
-        private bool _isAttackAvailable => !_isHitReactionExecuting && !roll.IsExecuting && sword.IsAvailable;
+        private bool _isAttackAvailable => !_isHitReactionExecuting && !roll.IsExecuting;
 
         private bool _isHitReactionExecuting => hitReaction.IsExecuting;
 
         public PlayerView View => view;
+        public PlayerInputActions Input => _playerInputActions;
 
         private void Awake()
         {
             _rigidbody = transform.GetComponent<Rigidbody>();
             _playerInputActions = new PlayerInputActions();
             _playerInputActions.Ingame.Attack01.performed += (param) => ExecuteAttack01(param).Forget();
+            _playerInputActions.Ingame.Attack02Focus.started += Attack02Started;
+            _playerInputActions.Ingame.Attack02Focus.performed += (param) => ExecuteAttack02(param).Forget();
+            _playerInputActions.Ingame.Attack02Focus.canceled += Attack02Canceled;
             _playerInputActions.Ingame.Roll.performed += ExecuteRoll;
             hitReaction.Initialize(this);
             roll.Initialize();
             roll.SetOnComplete(OnRollCompleted);
+            testWeapon.Initialize(this);
             sword.Initialize(this);
             sword.SetStyle(PlayerSwordStyle.Combo);
+        }
+
+        private void Attack02Started(InputAction.CallbackContext obj)
+        {
+            testWeapon.Started();
+        }
+
+        private void Attack02Canceled(InputAction.CallbackContext obj)
+        {
+            testWeapon.Cancel();
         }
 
         private void ExecuteRoll(InputAction.CallbackContext obj)
@@ -61,12 +77,20 @@ namespace GamePlay.Characters
 
         private async UniTask ExecuteAttack01(InputAction.CallbackContext obj)
         {
-            if (!_isAttackAvailable)
+            if (!_isAttackAvailable && !sword.IsAvailable())
                 return;
 
-            await sword.Attack();
+            await sword.Execute();
         }
 
+        private async UniTask ExecuteAttack02(InputAction.CallbackContext obj)
+        {
+            if (!_isAttackAvailable && !testWeapon.IsAvailable())
+                return;
+
+            await testWeapon.Execute();
+        }
+        
         private void Move()
         {
             if (!_isMovingAvailable)

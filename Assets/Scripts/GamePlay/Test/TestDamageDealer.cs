@@ -13,7 +13,7 @@ namespace GamePlay
         [SerializeField] private bool isSelected;
         
         private IDamageable _target;
-        private Action _resetPositon;
+        private Action _resetPositon; 
 
         public void Initialize(IDamageable damageable, Action resetPosition)
         {

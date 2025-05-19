@@ -18,7 +18,8 @@ using UnityEngine.InputSystem.Utilities;
 public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
 {
     public InputActionAsset asset { get; }
-    public @PlayerInputActions() {
+    public @PlayerInputActions()
+    {
         asset = InputActionAsset.FromJson(@"{
     ""name"": ""PlayerInputActions"",
     ""maps"": [
@@ -39,7 +40,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Attack01"",
                     ""type"": ""Button"",
                     ""id"": ""1f5d9b23-b045-41bb-b9ca-d276c6637194"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -48,7 +49,43 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Roll"",
                     ""type"": ""Button"",
                     ""id"": ""a4ab294c-10da-4436-9e81-ddad9c34e32d"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack02Focus"",
+                    ""type"": ""Button"",
+                    ""id"": ""260bfeea-8e73-4f72-838d-08fe9bb04979"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AimWithGamepad"",
+                    ""type"": ""Value"",
+                    ""id"": ""ab448cd9-d818-4348-b2be-e8a9b6a4304b"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""AimWithMouse"",
+                    ""type"": ""Value"",
+                    ""id"": ""d4fb2f83-8c1b-45aa-8643-528011d50d26"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Attack02Execute"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4fcfdb0-fb06-49ac-a0fd-ccd43089d1f3"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -72,7 +109,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""DefaultControlSceme"",
+                    ""groups"": ""PC"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -83,7 +120,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""DefaultControlSceme"",
+                    ""groups"": ""PC"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -94,7 +131,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""DefaultControlSceme"",
+                    ""groups"": ""PC"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -105,7 +142,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""DefaultControlSceme"",
+                    ""groups"": ""PC"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -127,7 +164,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";PC"",
                     ""action"": ""Attack01"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -146,10 +183,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""34fca272-7518-49a3-920f-cbbe1c986232"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";PC"",
                     ""action"": ""Roll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -164,18 +201,84 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Roll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fe18b3f2-16b6-4453-8cfd-09f9c90ac850"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""Attack02Focus"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b915c1a7-18b6-432a-b6cb-bb872b8e9b59"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";GamePad"",
+                    ""action"": ""Attack02Focus"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59270ab7-25fb-404f-b4fd-191e072295a3"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";GamePad"",
+                    ""action"": ""AimWithGamepad"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a227e537-9850-4ab4-bbad-144aac6f48b1"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""AimWithMouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9e5e60c2-cf90-4d32-8c61-b22c2b057b4a"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""Attack02Execute"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3891a246-7f7b-48c8-98c9-31e6711015a6"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";GamePad"",
+                    ""action"": ""Attack02Execute"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""DefaultControlSceme"",
-            ""bindingGroup"": ""DefaultControlSceme"",
+            ""name"": ""PC"",
+            ""bindingGroup"": ""PC"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Gamepad>"",
-                    ""isOptional"": false,
+                    ""isOptional"": true,
                     ""isOR"": false
                 },
                 {
@@ -208,6 +311,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Ingame_Movement = m_Ingame.FindAction("Movement", throwIfNotFound: true);
         m_Ingame_Attack01 = m_Ingame.FindAction("Attack01", throwIfNotFound: true);
         m_Ingame_Roll = m_Ingame.FindAction("Roll", throwIfNotFound: true);
+        m_Ingame_Attack02Focus = m_Ingame.FindAction("Attack02Focus", throwIfNotFound: true);
+        m_Ingame_AimWithGamepad = m_Ingame.FindAction("AimWithGamepad", throwIfNotFound: true);
+        m_Ingame_AimWithMouse = m_Ingame.FindAction("AimWithMouse", throwIfNotFound: true);
+        m_Ingame_Attack02Execute = m_Ingame.FindAction("Attack02Execute", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -277,6 +384,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Ingame_Movement;
     private readonly InputAction m_Ingame_Attack01;
     private readonly InputAction m_Ingame_Roll;
+    private readonly InputAction m_Ingame_Attack02Focus;
+    private readonly InputAction m_Ingame_AimWithGamepad;
+    private readonly InputAction m_Ingame_AimWithMouse;
+    private readonly InputAction m_Ingame_Attack02Execute;
     public struct IngameActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -284,6 +395,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Ingame_Movement;
         public InputAction @Attack01 => m_Wrapper.m_Ingame_Attack01;
         public InputAction @Roll => m_Wrapper.m_Ingame_Roll;
+        public InputAction @Attack02Focus => m_Wrapper.m_Ingame_Attack02Focus;
+        public InputAction @AimWithGamepad => m_Wrapper.m_Ingame_AimWithGamepad;
+        public InputAction @AimWithMouse => m_Wrapper.m_Ingame_AimWithMouse;
+        public InputAction @Attack02Execute => m_Wrapper.m_Ingame_Attack02Execute;
         public InputActionMap Get() { return m_Wrapper.m_Ingame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -302,6 +417,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Roll.started += instance.OnRoll;
             @Roll.performed += instance.OnRoll;
             @Roll.canceled += instance.OnRoll;
+            @Attack02Focus.started += instance.OnAttack02Focus;
+            @Attack02Focus.performed += instance.OnAttack02Focus;
+            @Attack02Focus.canceled += instance.OnAttack02Focus;
+            @AimWithGamepad.started += instance.OnAimWithGamepad;
+            @AimWithGamepad.performed += instance.OnAimWithGamepad;
+            @AimWithGamepad.canceled += instance.OnAimWithGamepad;
+            @AimWithMouse.started += instance.OnAimWithMouse;
+            @AimWithMouse.performed += instance.OnAimWithMouse;
+            @AimWithMouse.canceled += instance.OnAimWithMouse;
+            @Attack02Execute.started += instance.OnAttack02Execute;
+            @Attack02Execute.performed += instance.OnAttack02Execute;
+            @Attack02Execute.canceled += instance.OnAttack02Execute;
         }
 
         private void UnregisterCallbacks(IIngameActions instance)
@@ -315,6 +442,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Roll.started -= instance.OnRoll;
             @Roll.performed -= instance.OnRoll;
             @Roll.canceled -= instance.OnRoll;
+            @Attack02Focus.started -= instance.OnAttack02Focus;
+            @Attack02Focus.performed -= instance.OnAttack02Focus;
+            @Attack02Focus.canceled -= instance.OnAttack02Focus;
+            @AimWithGamepad.started -= instance.OnAimWithGamepad;
+            @AimWithGamepad.performed -= instance.OnAimWithGamepad;
+            @AimWithGamepad.canceled -= instance.OnAimWithGamepad;
+            @AimWithMouse.started -= instance.OnAimWithMouse;
+            @AimWithMouse.performed -= instance.OnAimWithMouse;
+            @AimWithMouse.canceled -= instance.OnAimWithMouse;
+            @Attack02Execute.started -= instance.OnAttack02Execute;
+            @Attack02Execute.performed -= instance.OnAttack02Execute;
+            @Attack02Execute.canceled -= instance.OnAttack02Execute;
         }
 
         public void RemoveCallbacks(IIngameActions instance)
@@ -332,13 +471,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public IngameActions @Ingame => new IngameActions(this);
-    private int m_DefaultControlScemeSchemeIndex = -1;
-    public InputControlScheme DefaultControlScemeScheme
+    private int m_PCSchemeIndex = -1;
+    public InputControlScheme PCScheme
     {
         get
         {
-            if (m_DefaultControlScemeSchemeIndex == -1) m_DefaultControlScemeSchemeIndex = asset.FindControlSchemeIndex("DefaultControlSceme");
-            return asset.controlSchemes[m_DefaultControlScemeSchemeIndex];
+            if (m_PCSchemeIndex == -1) m_PCSchemeIndex = asset.FindControlSchemeIndex("PC");
+            return asset.controlSchemes[m_PCSchemeIndex];
         }
     }
     private int m_GamePadSchemeIndex = -1;
@@ -355,5 +494,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnAttack01(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
+        void OnAttack02Focus(InputAction.CallbackContext context);
+        void OnAimWithGamepad(InputAction.CallbackContext context);
+        void OnAimWithMouse(InputAction.CallbackContext context);
+        void OnAttack02Execute(InputAction.CallbackContext context);
     }
 }

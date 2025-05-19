@@ -9,19 +9,21 @@ namespace GamePlay.Weapons.Player
         Combo
     }
 
-    public class PlayerSwordWeapon : MonoBehaviour
+    public class PlayerSwordWeapon : MonoBehaviour, IWeapon<PlayerController>
     {
-        private IPlayerWeaponStyle[] _styles;
+        private IWeaponStyle<PlayerController>[] _styles;
         private PlayerController _player;
-        private IPlayerWeaponStyle _currentStyle;
+        private IWeaponStyle<PlayerController> _current;
         private PlayerSwordStyle _currentSwordStyle;
-        public bool IsExecuting => _currentStyle.IsExecuting();
-        public bool IsAvailable => _currentStyle.IsAvailable();
+
+        public bool IsExecuting() => _current.IsExecuting();
+
+        public bool IsAvailable() => _current.IsAvailable();
 
         public void Initialize(PlayerController player)
         {
             _player = player;
-            _styles = this.GetComponentsInChildren<IPlayerWeaponStyle>();
+            _styles = this.GetComponentsInChildren<IWeaponStyle<PlayerController>>();
             for (int i = 0; i < _styles.Length; i++)
             {
                 _styles[i].Initialize(_player);
@@ -31,12 +33,12 @@ namespace GamePlay.Weapons.Player
         public void SetStyle(PlayerSwordStyle style)
         {
             _currentSwordStyle = style;
-            _currentStyle = _styles[(int)style];
+            _current = _styles[(int)style];
         }
 
-        public async UniTask Attack()
+        public async UniTask Execute()
         {
-            await _currentStyle.PerformAttack();
+            await _current.Execute();
         }
     }
 }
